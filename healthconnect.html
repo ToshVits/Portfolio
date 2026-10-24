@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="HealthConnect Rwanda healthcare operations and performance analytics case study by Vitalis Gitonga.">
+<title>HealthConnect Rwanda | Vitalis Gitonga Portfolio</title>
+<style>
+:root {
+  --site-primary:#102A43;
+  --site-on-primary:#FFFFFF;
+  --site-secondary:#0F766E;
+  --site-on-secondary:#FFFFFF;
+  --site-background:#F3F7FA;
+  --site-on-background:#142536;
+  --site-font-body:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --site-font-heading:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --site-heading-scale:1;
+  --site-spacing-scale:1;
+  --site-radius-scale:1;
+  --site-decoration-opacity:1;
+  --surface:#FFFFFF;
+  --surface-soft:#EAF1F5;
+  --ink:#142536;
+  --muted:#607487;
+  --line:#D9E3EA;
+  --accent:#0F766E;
+  --accent-soft:#DDF4EF;
+  --gold:#D69E36;
+  --danger:#B45353;
+  --shadow:0 18px 50px rgba(16,42,67,.09);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--site-background);color:var(--site-on-background);font-family:var(--site-font-body);line-height:1.6}
+#app{min-height:100vh;width:100%;background-color:var(--site-background);color:var(--site-on-background);border-radius:0;overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1160px,calc(100% - 44px));margin:auto}
+.topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--site-background) 92%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.04em}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:var(--site-primary);color:var(--site-on-primary);display:grid;place-items:center;font-weight:900}
+.navlinks{display:flex;align-items:center;gap:24px;color:var(--muted);font-size:13px;font-weight:650}
+.navlinks a:hover{color:var(--accent)}
+.nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:12px;padding:11px 17px;background:var(--site-primary);color:var(--site-on-primary);font-weight:700;font-size:13px;cursor:pointer;transition:.2s}
+.btn:hover,.nav-cta:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn.secondary{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.menu-btn{display:none;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 11px;color:var(--ink)}
+.hero{position:relative;padding:92px 0 76px;background:var(--site-primary);color:#fff;isolation:isolate}
+.hero:before,.hero:after{content:"";position:absolute;z-index:-1;border-radius:50%;filter:blur(1px);opacity:var(--site-decoration-opacity)}
+.hero:before{width:430px;height:430px;right:-100px;top:-210px;background:radial-gradient(circle,rgba(15,118,110,.6),transparent 68%)}
+.hero:after{width:350px;height:350px;left:42%;bottom:-250px;background:radial-gradient(circle,rgba(214,158,54,.25),transparent 70%)}
+.hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:55px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.14em;font-size:10px;font-weight:800;color:#83D8C7}
+.dot{width:7px;height:7px;border-radius:50%;background:#83D8C7;box-shadow:0 0 0 5px rgba(131,216,199,.14)}
+h1,h2,h3{font-family:var(--site-font-heading);line-height:1.12;letter-spacing:-.045em}
+h1{font-size:clamp(42px,6.4vw,72px);margin:22px 0 20px;max-width:780px}
+.hero p{color:#D2DFE9;max-width:650px;font-size:17px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.hero .btn{background:#83D8C7;color:#0B2A36}
+.hero .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff}
+.hero-aside{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:22px;padding:25px;backdrop-filter:blur(10px)}
+.hero-aside .mini-label{color:#AFC4D3;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:800}
+.hero-aside strong{display:block;font-size:36px;letter-spacing:-.05em;margin:6px 0}
+.hero-aside p{font-size:12px;margin:0;color:#C6D5E0}
+.mini-bars{display:flex;align-items:end;gap:7px;height:82px;margin:22px 0 9px}
+.mini-bars i{display:block;flex:1;border-radius:5px 5px 1px 1px;background:linear-gradient(180deg,#83D8C7,#2C8E86)}
+.mini-bars i:nth-child(1){height:44%}.mini-bars i:nth-child(2){height:64%}.mini-bars i:nth-child(3){height:52%}.mini-bars i:nth-child(4){height:82%}.mini-bars i:nth-child(5){height:69%}.mini-bars i:nth-child(6){height:100%}.mini-bars i:nth-child(7){height:76%}
+.section{padding:78px 0}
+.section.alt{background:var(--surface-soft)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:32px}
+.kicker{color:var(--accent);font-size:11px;font-weight:850;letter-spacing:.14em;text-transform:uppercase}
+h2{font-size:clamp(30px,4vw,44px);margin:10px 0 12px}
+.section-head p{max-width:570px;color:var(--muted);margin:0;font-size:14px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.metric{padding:21px;border:1px solid var(--line);background:var(--surface);border-radius:16px;box-shadow:0 4px 18px rgba(16,42,67,.03)}
+.metric .label{color:var(--muted);font-size:11px;font-weight:700}
+.metric strong{display:block;font-size:28px;letter-spacing:-.05em;margin:7px 0 2px}
+.metric small{font-size:10px;color:var(--muted)}
+.metric.emphasis{background:var(--site-secondary);color:var(--site-on-secondary);border-color:var(--site-secondary)}
+.metric.emphasis .label,.metric.emphasis small{color:#C7ECE6}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:23px;box-shadow:0 5px 20px rgba(16,42,67,.035)}
+.panel h3{font-size:19px;margin:0 0 6px}
+.panel .sub{font-size:12px;color:var(--muted);margin:0 0 18px}
+.bar-row{display:grid;grid-template-columns:130px 1fr 50px;gap:12px;align-items:center;margin:13px 0;font-size:12px}
+.bar-track{height:9px;background:var(--surface-soft);border-radius:20px;overflow:hidden}
+.bar-fill{height:100%;border-radius:20px;background:var(--site-secondary)}
+.bar-row b{text-align:right;font-variant-numeric:tabular-nums}
+.mix{display:flex;height:14px;border-radius:20px;overflow:hidden;margin:18px 0}
+.mix span:nth-child(1){background:#0F766E;width:33.88%}.mix span:nth-child(2){background:#173E8A;width:33.12%}.mix span:nth-child(3){background:#EF713B;width:33%}
+.legend{display:flex;flex-wrap:wrap;gap:15px;font-size:11px;color:var(--muted)}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:3px;margin-right:6px}
+.insight{padding:20px;border-left:3px solid var(--gold);background:#FFF9EB;border-radius:0 13px 13px 0;color:#654B1D;font-size:13px}
+.project-shell{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.project-nav{position:sticky;top:94px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px}
+.project-nav button{width:100%;display:flex;justify-content:space-between;align-items:center;text-align:left;border:0;background:transparent;padding:12px;border-radius:10px;color:var(--muted);font-size:12px;font-weight:750;cursor:pointer}
+.project-nav button.active,.project-nav button:hover{background:var(--accent-soft);color:var(--site-secondary)}
+.project-nav span{font-size:10px;opacity:.65}
+.project-content{min-width:0}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}
+.tab-panel h3{font-size:25px;margin:0 0 10px}
+.tab-panel>p{color:var(--muted);font-size:13px;max-width:800px}
+.visual-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:20px}
+.visual-card{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:17px}
+.visual-card h4{font-size:13px;margin:0 0 5px}
+.visual-card p{font-size:11px;color:var(--muted);margin:0}
+.pill{display:inline-block;padding:5px 8px;border-radius:7px;background:var(--accent-soft);color:var(--site-secondary);font-size:10px;font-weight:800;margin:0 5px 5px 0}
+.pill.warn{background:#FFF1D8;color:#8A5B0A}
+.pill.muted{background:var(--surface-soft);color:var(--muted)}
+.codebox{background:#0B1F30;color:#DCEAF3;border-radius:13px;padding:17px;margin:14px 0;overflow:auto;font:11px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre}
+.codehead{display:flex;align-items:center;justify-content:space-between;color:#8FA9BA;font-size:10px;margin-bottom:9px}
+.copy{border:1px solid #385166;background:#17364D;color:#E3F1F8;border-radius:7px;padding:5px 9px;font-size:10px;cursor:pointer}
+.detail-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+.detail{border:1px solid var(--line);background:var(--surface);padding:15px;border-radius:12px}
+.detail b{display:block;font-size:12px;margin-bottom:4px}
+.detail p{font-size:11px;color:var(--muted);margin:0}
+.finding-list{display:grid;gap:12px}
+.finding{display:grid;grid-template-columns:38px 1fr;gap:13px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:13px}
+.finding .num{width:32px;height:32px;border-radius:10px;background:var(--accent-soft);color:var(--site-secondary);display:grid;place-items:center;font-weight:900;font-size:12px}
+.finding h4{margin:0 0 4px;font-size:13px}
+.finding p{margin:0;color:var(--muted);font-size:11px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;min-width:650px;font-size:12px}
+th,td{padding:13px 15px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:var(--surface-soft);color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+tr:last-child td{border-bottom:0}
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.skill{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.skill .icon{font-size:19px;color:var(--accent)}
+.skill h4{margin:8px 0 5px;font-size:13px}
+.skill p{margin:0;color:var(--muted);font-size:11px}
+.rec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
+.rec{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.rec small{color:var(--accent);font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.1em}
+.rec h3{font-size:17px;margin:7px 0}
+.rec p{font-size:12px;color:var(--muted);margin:0}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.step{border-top:3px solid var(--site-secondary);padding:15px 14px;background:var(--surface);border-radius:0 0 13px 13px}
+.step b{font-size:12px}
+.step p{font-size:11px;color:var(--muted);margin:6px 0 0}
+.contact{background:var(--site-primary);color:#fff;padding:58px 0}
+.contact .kicker{color:#83D8C7}
+.contact h2{max-width:650px}
+.contact p{color:#C7D7E2;font-size:14px;max-width:600px}
+.contact-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.contact .btn{background:#83D8C7;color:#0B2A36}
+.contact .btn.secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3)}
+footer{padding:23px 0;color:var(--muted);font-size:11px}
+.footer-row{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.note{font-size:11px;color:var(--muted)}
+@media(max-width:850px){
+ .hero-grid{grid-template-columns:1fr}.hero-aside{max-width:420px}
+ .metrics{grid-template-columns:repeat(2,1fr)}
+ .project-shell{grid-template-columns:1fr}.project-nav{position:static;display:grid;grid-template-columns:repeat(2,1fr)}
+ .skills{grid-template-columns:repeat(2,1fr)}
+ .timeline{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:620px){
+ .wrap{width:min(100% - 30px,1160px)}
+ .nav{height:62px}.menu-btn{display:block}.navlinks{display:none;position:absolute;top:61px;left:0;right:0;padding:15px 22px 20px;background:var(--site-background);border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:15px}.navlinks.open{display:flex}.nav-cta{display:none}
+ .hero{padding:68px 0 58px}.hero p{font-size:14px}
+ .section{padding:57px 0}.section-head{display:block}.section-head p{margin-top:8px}
+ .two-col,.visual-grid,.detail-list,.rec-grid{grid-template-columns:1fr}
+ .bar-row{grid-template-columns:95px 1fr 42px;gap:7px}
+ .project-nav{grid-template-columns:1fr 1fr}
+ .skills{grid-template-columns:1fr 1fr}
+ .timeline{grid-template-columns:1fr 1fr}
+}
+@media(prefers-color-scheme:dark){
+ :root{--surface:#172B3B;--surface-soft:#20394B;--ink:#E5EEF4;--muted:#A8BBC8;--line:#314A5C;--accent-soft:#173F42;--site-background:#0D1D2A;--site-on-background:#E7F0F5;--shadow:0 18px 50px rgba(0,0,0,.25)}
+ .insight{background:#382F1D;color:#F5D99B}
+ .metric.emphasis{background:#0F766E}
+}
+</style>
+</head>
+<body><div style="position:sticky;top:0;z-index:100;background:#07111f;color:#f3f8ff;padding:12px 4%;display:flex;justify-content:space-between;align-items:center;font:600 13px Inter,system-ui,sans-serif;border-bottom:1px solid #24415e"><a href="index.html" style="color:#63e6f4;text-decoration:none">← Back to Vitalis Portfolio</a><span>Project 03 · HealthConnect Rwanda</span><a href="mailto:ndunguvitalis@gmail.com" style="color:#f3f8ff;text-decoration:none">Contact</a></div>
+<div id="app">
+<header class="topbar">
+ <div class="wrap nav">
+  <a class="brand" href="#home"><span class="brand-mark">V</span><span>Vee<span style="color:var(--accent)">.</span> Analytics</span></a>
+  <nav class="navlinks" id="navlinks">
+   <a href="#about">About</a><a href="#project">Featured project</a><a href="#insights">Insights</a><a href="#skills">Skills</a><a href="#recommendations">Recommendations</a>
+  </nav>
+  <a class="nav-cta" href="#contact">Let's connect ↗</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">☰</button>
+ </div>
+</header>
+<main>
+<section class="hero" id="home">
+ <div class="wrap hero-grid">
+  <div>
+   <div class="eyebrow"><span class="dot"></span> DATA ANALYTICS PORTFOLIO</div>
+   <h1>Turning complex data into <span style="color:#83D8C7">clear decisions.</span></h1>
+   <p>I explore data, build analytical models, and communicate practical business insights. This portfolio presents my end-to-end healthcare analytics project for HealthConnect Rwanda, from SQL analysis to Power BI reporting and executive recommendations.</p>
+   <div class="hero-actions">
+    <a class="btn" href="#project">Explore the project <span>↓</span></a>
+    <a class="btn secondary" href="#contact">Contact me ↗</a>
+   </div>
+  </div>
+  <aside class="hero-aside">
+   <div class="mini-label">Featured case study</div>
+   <strong>HealthConnect<br>Rwanda</strong>
+   <p>Healthcare Operations &amp; Performance Analytics</p>
+   <div class="mini-bars" aria-label="Decorative bar chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+   <div style="display:flex;justify-content:space-between;color:#C6D5E0;font-size:10px"><span>SQL · Power BI · Reporting</span><span>2026</span></div>
+  </aside>
+ </div>
+</section>
+
+<section class="section" id="about">
+ <div class="wrap">
+  <div class="section-head">
+   <div><div class="kicker">01 / Profile</div><h2>About my work</h2></div>
+   <p>I use structured analysis to understand what is happening, why it matters, and what an organization should do next. My featured work combines database querying, dashboard design, data interpretation, and business communication.</p>
+  </div>
+  <div class="two-col">
+   <div class="panel">
+    <h3>My approach</h3><p class="sub">A practical analytics workflow, from raw records to an actionable story.</p>
+    <div class="finding-list">
+     <div class="finding"><div class="num">01</div><div><h4>Understand the question</h4><p>Translate business objectives into measurable questions and define the right level of analysis.</p></div></div>
+     <div class="finding"><div class="num">02</div><div><h4>Prepare and validate data</h4><p>Inspect structure, quality, keys, relationships, missing values, and consistency before trusting metrics.</p></div></div>
+     <div class="finding"><div class="num">03</div><div><h4>Analyze and visualize</h4><p>Use SQL and Power BI to summarize patterns, compare segments, and make findings easier to interpret.</p></div></div>
+     <div class="finding"><div class="num">04</div><div><h4>Communicate decisions</h4><p>Explain implications, recommend actions, and clearly disclose assumptions and data limitations.</p></div></div>
+    </div>
+   </div>
+   <div class="panel">
+    <h3>Portfolio focus</h3><p class="sub">Areas demonstrated in the HealthConnect project.</p>
+    <div class="detail-list">
+     <div class="detail"><b>Business intelligence</b><p>KPIs, dashboard pages, filters, and visual storytelling.</p></div>
+     <div class="detail"><b>SQL analysis</b><p>Aggregation, joins, ranking, date analysis, and data validation.</p></div>
+     <div class="detail"><b>Healthcare operations</b><p>Patient demand, appointments, workforce, finance, and feedback.</p></div>
+     <div class="detail"><b>Executive reporting</b><p>Findings, recommendations, risks, and implementation priorities.</p></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section alt" id="project">
+ <div class="wrap">
+  <div class="section-head">
+   <div><div class="kicker">02 / Featured case study</div><h2>HealthConnect Rwanda</h2></div>
+   <p>Healthcare Operations &amp; Performance Analytics. An end-to-end portfolio project built around patient, appointment, diagnosis, billing, payment, insurance-claim, feedback, staffing, and facility records.</p>
+  </div>
+  <div class="metrics">
+   <div class="metric"><div class="label">Patient records</div><strong>20,000</strong><small>Registered patient rows</small></div>
+   <div class="metric"><div class="label">Appointments</div><strong>5,000</strong><small>2026 appointment extract</small></div>
+   <div class="metric emphasis"><div class="label">Total billed</div><strong>RWF 9.31bn</strong><small>60,000 billing rows</small></div>
+   <div class="metric"><div class="label">Feedback rating</div><strong>2.99 / 5</strong><small>Across 21,064 feedback rows</small></div>
+  </div>
+  <div style="display:flex;gap:7px;flex-wrap:wrap;margin:22px 0 18px">
+   <span class="pill">Power BI · 7 report pages</span><span class="pill">SQL · 40 query topics</span><span class="pill">13-slide executive deck</span><span class="pill">4-page business insights report</span><span class="pill muted">PDF dashboard snapshot</span>
+  </div>
+  <div class="project-shell">
+   <aside class="project-nav" id="projectNav">
+    <button class="active" data-tab="overview">Project overview <span>01</span></button>
+    <button data-tab="dashboard">Power BI dashboard <span>02</span></button>
+    <button data-tab="sql">SQL analysis <span>03</span></button>
+    <button data-tab="findings">Data findings <span>04</span></button>
+    <button data-tab="deliverables">Project deliverables <span>05</span></button>
+   </aside>
+   <div class="project-content">
+    <article class="tab-panel active" id="tab-overview">
+     <h3>Project overview</h3>
+     <p>The project examines healthcare operations and performance through linked datasets. Its goal is to give decision-makers a view of patient demographics, appointment demand, diagnoses, financial activity, workforce distribution, patient feedback, and facility resources.</p>
+     <div class="visual-grid">
+      <div class="visual-card"><h4>Business problem</h4><p>Healthcare leaders need a consistent view of service demand, financial activity, patient experience, and operational capacity to support evidence-based planning.</p></div>
+      <div class="visual-card"><h4>Analytical objective</h4><p>Consolidate multiple operational files into a structured analysis, build useful metrics, and turn the results into management recommendations.</p></div>
+      <div class="visual-card"><h4>Tools and artifacts</h4><p>MySQL SQL scripts, Power BI report (.pbix), dashboard PDF, executive PowerPoint, and written business insights report.</p></div>
+      <div class="visual-card"><h4>Reporting standard</h4><p>Distinguish source totals from matched-subset metrics; disclose when a KPI is provisional or unavailable.</p></div>
+     </div>
+    </article>
+    <article class="tab-panel" id="tab-dashboard">
+     <h3>Power BI dashboard walkthrough</h3>
+     <p>The HealthConnect executive dashboard presents the project KPIs, patient profile, appointment patterns, financial activity, and operational indicators.</p>
+     <div class="dashboard-gallery" style="display:grid;gap:18px;margin:18px 0 24px">
+      <figure style="margin:0"><img src="assets/healthconnect/dashboard-1.png" alt="HealthConnect Rwanda executive dashboard showing headline KPIs, appointment trend, visit type mix, gender profile, facility appointment counts and diagnosis counts" style="display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px"><figcaption style="font-size:12px;color:var(--muted);margin-top:7px">Executive dashboard · headline KPIs and appointment overview</figcaption></figure>
+      <figure style="margin:0"><img src="assets/healthconnect/dashboard-2.png" alt="HealthConnect patient analytics and financial analytics dashboard pages" style="display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px"><figcaption style="font-size:12px;color:var(--muted);margin-top:7px">Patient profile and financial analytics</figcaption></figure>
+      <figure style="margin:0"><img src="assets/healthconnect/dashboard-3.png" alt="HealthConnect Rwanda operations and patient experience dashboard page" style="display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px"><figcaption style="font-size:12px;color:var(--muted);margin-top:7px">Operations and patient experience</figcaption></figure>
+     </div>
+     <div class="detail-list">
+      <div class="detail"><b>1. Executive Dashboard</b><p>High-level KPI cards, appointment trend, visit-type mix, facility appointment counts, diagnosis counts, and slicers.</p></div>
+      <div class="detail"><b>2. Patients Analytics</b><p>Registered patient profile, gender profile, age groups, chronic-condition distribution, insurance distribution, blood groups, and marital status.</p></div>
+      <div class="detail"><b>3. Clinical Analytics</b><p>Diagnosis counts and severity distribution, intended to summarize the clinical records available in the extract.</p></div>
+      <div class="detail"><b>4. Financial Analytics</b><p>Billing status, payment methods, insurance-claim status, and financial summaries.</p></div>
+      <div class="detail"><b>5. Operations</b><p>Staffing and resource indicators, including doctor specialty, appointments by doctor, and administrative staff by department.</p></div>
+      <div class="detail"><b>6. Patient Experience</b><p>Rating distribution, feedback matched to appointments, and feedback comment categories.</p></div>
+      <div class="detail"><b>7. Page 1</b><p>An additional page exists in the PBIX. Its visible display name is still the default “Page 1” and should be renamed or removed before final presentation.</p></div>
+     </div>
+    </article>
+    <article class="tab-panel" id="tab-sql">
+     <h3>SQL analysis: 40 query topics</h3>
+     <p>The SQL file is organized into four analytical domains. Select a domain to review the questions covered.</p>
+     <div class="detail-list">
+      <div class="detail"><b>Patient analysis · 1–10</b><p>Patient records, gender, geography, age over 65, chronic conditions, insurance-coded patients, blood group, youngest/oldest patients, duplicate phone numbers, and average age.</p></div>
+      <div class="detail"><b>Appointment analysis · 11–20</b><p>Monthly appointments, busiest facilities, department workload, doctor workload, referrals, emergency appointments, average appointments per doctor, province patterns, facility patient volume, and consultation periods.</p></div>
+      <div class="detail"><b>Clinical analysis · 21–30</b><p>Top diagnoses, lab tests, prescriptions, admission duration, severity, lab utilization, prescription trends, referral destinations, admission rate by diagnosis, and clinical workload by department.</p></div>
+      <div class="detail"><b>Financial analysis · 31–40</b><p>Revenue by facility, department and service, insurance claims, outstanding payments, average bill, monthly revenue, payment methods, top revenue facilities, and facility ranking.</p></div>
+     </div>
+     <div class="codebox"><div class="codehead"><span>Example · Monthly appointment volume</span><button class="copy" data-copy="SELECT DATE_FORMAT(`Date`, '%Y-%m') AS YearMonth, COUNT(*) AS TotalAppointments FROM appointments GROUP BY DATE_FORMAT(`Date`, '%Y-%m') ORDER BY YearMonth;">Copy SQL</button></div><code>SELECT
+    DATE_FORMAT(`Date`, '%Y-%m') AS YearMonth,
+    COUNT(*) AS TotalAppointments
+FROM appointments
+GROUP BY DATE_FORMAT(`Date`, '%Y-%m')
+ORDER BY YearMonth;</code></div>
+     <div class="codebox"><div class="codehead"><span>Example · Billed amount by facility (matched appointments only)</span><button class="copy" data-copy="SELECT a.FacilityID, SUM(b.Amount) AS Billed_Amount, COUNT(DISTINCT b.BillingID) AS Bill_Count FROM billing b JOIN appointments a ON b.AppointmentID = a.AppointmentID GROUP BY a.FacilityID ORDER BY Billed_Amount DESC;">Copy SQL</button></div><code>SELECT
+    a.FacilityID,
+    SUM(b.Amount) AS Billed_Amount,
+    COUNT(DISTINCT b.BillingID) AS Bill_Count
+FROM billing b
+JOIN appointments a
+    ON b.AppointmentID = a.AppointmentID
+GROUP BY a.FacilityID
+ORDER BY Billed_Amount DESC;</code></div>
+    </article>
+    <article class="tab-panel" id="tab-findings">
+     <h3>Key findings in the supplied reports</h3>
+     <p>These values are transcribed from the uploaded business insights report and executive dashboard snapshot. They are source-level observations, not independently audited hospital-wide totals.</p>
+     <div class="finding-list">
+      <div class="finding"><div class="num">01</div><div><h4>Patient profile</h4><p>20,000 patient rows: 10,090 male and 9,910 female. Stored mean age is 45.0 years; DOB-derived mean age as of 20 October 2026 is 45.8 years.</p></div></div>
+      <div class="finding"><div class="num">02</div><div><h4>Chronic conditions</h4><p>14,929 patient records have a chronic condition recorded; 5,071 are explicitly marked “None,” meaning no chronic disease under the source definition.</p></div></div>
+      <div class="finding"><div class="num">03</div><div><h4>Appointment demand</h4><p>5,000 appointments dated 1 January to 28 December 2026. Visit types: 1,694 follow-ups, 1,656 consultations, and 1,650 emergency visits. 4,443 distinct patients appear in appointments.</p></div></div>
+      <div class="finding"><div class="num">04</div><div><h4>Financial activity</h4><p>Billing rows total RWF 9,309,401,961; payment rows total RWF 8,389,454,556. The RWF 919,947,405 difference is a provisional balance proxy, not audited receivables.</p></div></div>
+      <div class="finding"><div class="num">05</div><div><h4>Patient experience</h4><p>Average feedback rating is 2.99 out of 5 across 21,064 feedback rows. Only a subset of feedback rows can be linked to the appointment extract.</p></div></div>
+      <div class="finding"><div class="num">06</div><div><h4>Staff and assets</h4><p>350 doctors, 700 nurses, 50 pharmacists, 40 laboratory scientists, 30 radiographers, and 80 administrative staff. The source lists 2,000 beds (all marked Available), 400 rooms, and 200 equipment records.</p></div></div>
+     </div>
+     <div class="panel" style="margin-top:16px"><h3>Visit type mix</h3><p class="sub">Share of the 5,000 appointment records in the report.</p><div class="mix"><span></span><span></span><span></span></div><div class="legend"><span><i style="background:#0F766E"></i>Follow-up 1,694 · 33.88%</span><span><i style="background:#173E8A"></i>Consultation 1,656 · 33.12%</span><span><i style="background:#EF713B"></i>Emergency 1,650 · 33.00%</span></div></div>
+    </article>
+    <article class="tab-panel" id="tab-deliverables">
+     <h3>Uploaded project deliverables</h3>
+     <p>The portfolio source package includes the following original artifacts. They are described here rather than embedded as downloads inside this preview.</p>
+     <div class="detail-list">
+      <div class="detail"><b>HC.pbix</b><p>Power BI report with seven pages: Executive Dashboard, Patients Analytics, Clinical Analytics, Financial Analytics, Operations, Patient Experience, and a default Page 1.</p><span class="pill">Power BI source</span></div>
+      <div class="detail"><b>HealthConnect_Dashboard.pdf</b><p>Three-page executive dashboard snapshot with metric summary, patient profile, finance, and operational interpretation.</p><span class="pill">3 pages</span></div>
+      <div class="detail"><b>Executive Presentation.pptx</b><p>13-slide executive readout covering scope, patient profile, age groups, appointment demand, visit mix, diagnosis, finance, feedback, geography, operations, and priorities.</p><span class="pill">13 slides</span></div>
+      <div class="detail"><b>Healthcare Business Insights.docx</b><p>Executive summary, dataset observations, seven business recommendation themes, and conclusion.</p><span class="pill">Word report</span></div>
+      <div class="detail"><b>Healthcare Business Insites.pdf</b><p>Four-page PDF version of the business insights report.</p><span class="pill">4 pages</span></div>
+      <div class="detail"><b>HealthConnect_SQL_40_Queries.sql</b><p>Forty numbered analytical query topics grouped into patient, appointment, clinical, and financial analysis.</p><span class="pill">SQL script</span></div>
+     </div>
+    </article>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="insights">
+ <div class="wrap">
+  <div class="section-head">
+   <div><div class="kicker">03 / Business communication</div><h2>What the analysis means</h2></div>
+   <p>Business insight is more than a chart. Each observation should connect to a decision, with the evidence and uncertainty made clear.</p>
+  </div>
+  <div class="two-col">
+   <div class="panel">
+    <h3>Business questions addressed</h3><p class="sub">Questions supported at least partially by the supplied records.</p>
+    <div class="bar-row"><span>Patient demand</span><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div><b>High</b></div>
+    <div class="bar-row"><span>Department load</span><div class="bar-track"><div class="bar-fill" style="width:82%"></div></div><b>Good</b></div>
+    <div class="bar-row"><span>Staff distribution</span><div class="bar-track"><div class="bar-fill" style="width:68%"></div></div><b>Partial</b></div>
+    <div class="bar-row"><span>Patient satisfaction</span><div class="bar-track"><div class="bar-fill" style="width:56%"></div></div><b>Partial</b></div>
+    <div class="bar-row"><span>Revenue activity</span><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div><b>Partial</b></div>
+   </div>
+   <div class="panel">
+    <h3>Questions needing more data</h3><p class="sub">The source reports cannot reliably answer these yet.</p>
+    <div class="finding-list">
+     <div class="finding"><div class="num">!</div><div><h4>Insurance company revenue</h4><p>Requires verified insurer-to-billing allocation and claim/payment reconciliation.</p></div></div>
+     <div class="finding"><div class="num">!</div><div><h4>Hospital expansion needs</h4><p>Requires occupancy, waiting time, capacity, admission, and service-hour data.</p></div></div>
+     <div class="finding"><div class="num">!</div><div><h4>Operating cost reduction</h4><p>Requires salary, procurement, utilities, maintenance, and other operating expenses.</p></div></div>
+     <div class="finding"><div class="num">!</div><div><h4>Regional investment</h4><p>Requires validated facility geographies, population, access, and capacity indicators.</p></div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section alt" id="skills">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker">04 / Toolkit</div><h2>Skills demonstrated</h2></div><p>Capabilities evidenced by the uploaded project work. This list describes the techniques used in the artifacts, not external certifications.</p></div>
+  <div class="skills">
+   <div class="skill"><div class="icon">▤</div><h4>SQL &amp; MySQL</h4><p>Joins, aggregation, grouping, subqueries, date functions, window ranking, and data checks.</p></div>
+   <div class="skill"><div class="icon">▥</div><h4>Power BI</h4><p>Report pages, KPI cards, slicers, age groups, charts, and business-facing dashboards.</p></div>
+   <div class="skill"><div class="icon">◫</div><h4>DAX &amp; metrics</h4><p>Measures and calculated columns for patient, appointment, finance, and demographic reporting.</p></div>
+   <div class="skill"><div class="icon">▧</div><h4>Data modeling</h4><p>Patient, appointment, diagnosis, billing, payment, feedback, and dimension relationships.</p></div>
+   <div class="skill"><div class="icon">⌕</div><h4>Data quality</h4><p>Key matching, duplicate detection, null checks, reconciliation, and limitation reporting.</p></div>
+   <div class="skill"><div class="icon">⌁</div><h4>Data visualization</h4><p>Trend, composition, ranking, distribution, and KPI visuals.</p></div>
+   <div class="skill"><div class="icon">▣</div><h4>Business analysis</h4><p>Business questions, KPI definitions, operational interpretation, and recommendations.</p></div>
+   <div class="skill"><div class="icon">✎</div><h4>Communication</h4><p>Executive presentation, written report, narrative, and actionable next steps.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="recommendations">
+ <div class="wrap">
+  <div class="section-head"><div><div class="kicker">05 / Recommendations</div><h2>From evidence to action</h2></div><p>The business insights report recommends a practical improvement agenda for patient experience, finance, appointments, workforce, facilities, data quality, and clinical systems.</p></div>
+  <div class="rec-grid">
+   <div class="rec"><small>01 · Patient experience</small><h3>Raise satisfaction</h3><p>Review low feedback scores, investigate complaints, improve communication, and reduce waiting times. Track rating and response volume together.</p></div>
+   <div class="rec"><small>02 · Financial management</small><h3>Reconcile billing and payments</h3><p>Introduce regular reconciliation, monitor pending and partially paid bills, and use reminders only after balances are verified.</p></div>
+   <div class="rec"><small>03 · Appointment operations</small><h3>Balance demand and capacity</h3><p>Monitor monthly and departmental appointment demand, review peak periods, and align schedules with patient volume.</p></div>
+   <div class="rec"><small>04 · Workforce</small><h3>Allocate staff against workload</h3><p>Compare staff by facility and department with appointment demand. Add shift, hours, and acuity data before judging efficiency.</p></div>
+   <div class="rec"><small>05 · Facilities</small><h3>Measure real utilization</h3><p>Capture actual bed occupancy, room usage, equipment availability, and maintenance history before prioritizing expansion.</p></div>
+   <div class="rec"><small>06 · Data governance</small><h3>Improve patient records</h3><p>Standardize patient identifiers, validate contact information, resolve duplicate records, and govern age calculations.</p></div>
+   <div class="rec"><small>07 · Clinical systems</small><h3>Capture missing transactions</h3><p>Implement linked laboratory orders, prescriptions, admissions, discharges, referrals, and outcomes.</p></div>
+   <div class="rec"><small>08 · Management reporting</small><h3>Establish KPI ownership</h3><p>Define each metric, its source, owner, refresh cycle, denominator, and quality checks before operational targets are set.</p></div>
+  </div>
+  <h3 style="margin:36px 0 16px;font-size:22px">Suggested implementation sequence</h3>
+  <div class="timeline">
+   <div class="step"><b>Phase 1 · Validate</b><p>Reconcile IDs and finance; agree definitions; confirm facility master and dates.</p></div>
+   <div class="step"><b>Phase 2 · Instrument</b><p>Capture bed occupancy, waiting times, staff shifts, costs, and clinical transactions.</p></div>
+   <div class="step"><b>Phase 3 · Operationalize</b><p>Assign KPI owners, refresh dashboards, and review trends with facility managers.</p></div>
+   <div class="step"><b>Phase 4 · Improve</b><p>Run targeted pilots, measure outcomes, and scale interventions with verified evidence.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="contact" id="contact">
+ <div class="wrap">
+  <div class="kicker">06 / Contact</div>
+  <h2>Let's turn your data into your next business decision.</h2>
+  <p>Interested in data analytics, reporting, or business intelligence projects? Reach out to discuss a collaboration.</p>
+  <div class="contact-row">
+   <a class="btn" href="mailto:ndunguvitalis@gmail.com" id="emailLink">Email me ↗</a>
+   <a class="btn secondary" href="#home">Back to top ↑</a>
+  </div>
+ </div>
+</section>
+</main>
+<footer><div class="wrap footer-row"><span>© 2026 Vee · Data Analytics Portfolio</span><span>Built around the HealthConnect Rwanda project artifacts</span></div></footer>
+</div>
+<script>
+const nav=document.getElementById('navlinks');
+document.getElementById('menuBtn').addEventListener('click',()=>nav.classList.toggle('open'));
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+const tabs=[...document.querySelectorAll('#projectNav button')];
+tabs.forEach(btn=>btn.addEventListener('click',()=>{
+ tabs.forEach(b=>b.classList.toggle('active',b===btn));
+ document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+btn.dataset.tab));
+}));
+document.querySelectorAll('[data-copy]').forEach(btn=>btn.addEventListener('click',async()=>{
+ const value=btn.getAttribute('data-copy');
+ try{await navigator.clipboard.writeText(value);btn.textContent='Copied';}
+ catch(e){btn.textContent='Select code above';}
+ setTimeout(()=>btn.textContent='Copy SQL',1600);
+}));
+</script>
+</body>
+</html>
